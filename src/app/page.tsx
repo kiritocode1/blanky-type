@@ -909,7 +909,7 @@ export default function CodeTypeGame() {
 			setTimeLeft((prev) => Math.max(0, prev - 2)); // Decrease time by 2 seconds for wrong answers
 			setTimeout(() => setFeedback(null), 3000);
 		}
-	}, [answers, currentChallenge, executeCode]);
+	}, [answers, currentChallenge, executeCode, playError, playFinished, playSolved]);
 
 	useEffect(() => {
 		if (inputRef.current) {
@@ -943,7 +943,7 @@ export default function CodeTypeGame() {
 			playFinished(); // Play finished sound when time's up
 		}
 		return () => clearInterval(interval);
-	}, [gameActive, timeLeft]);
+	}, [gameActive, timeLeft, playFinished]);
 
 	// Snapshot score and errors each second for the results chart
 	useEffect(() => {
