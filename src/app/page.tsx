@@ -1024,7 +1024,7 @@ export default function CodeTypeGame() {
 				</div>
 				<div className="max-w-3xl w-full text-center space-y-8">
 					<div className="space-y-4">
-						<h1 className="text-4xl font-bold">Time's Up!</h1>
+						<h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
 						<div className="text-6xl font-bold text-primary">{score}</div>
 						<div className="flex items-center justify-center gap-2">
 							<p className="text-muted-foreground">Coding IQ: </p>
