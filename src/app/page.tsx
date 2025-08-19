@@ -1023,11 +1023,12 @@ export default function CodeTypeGame() {
 					<ThemeToggle />
 				</div>
 				<div className="max-w-3xl w-full text-center space-y-8">
-					<div className="space-y-4">
+          <div className="space-y-4">
+            
 						<div className="flex items-center justify-center gap-3 mb-6">
 							<Image
 								src="/btype.png"
-								alt="BlankyType Logo"
+								alt="Blankytype Logo"
 								width={48}
 								height={48}
 								className="h-12 w-12"
@@ -1058,7 +1059,7 @@ export default function CodeTypeGame() {
 										ctx.fillStyle = document.documentElement.classList.contains("dark") ? "#ffffff" : "#020817";
 										ctx.font = "bold 48px system-ui";
 										ctx.textAlign = "center";
-										ctx.fillText("BlankyType Results", 600, 100);
+										ctx.fillText("Blankytype Results", 600, 100);
 
 										// Draw stats
 										ctx.font = "bold 36px system-ui";
@@ -1075,7 +1076,7 @@ export default function CodeTypeGame() {
 
 										// Convert to image and download
 										const link = document.createElement("a");
-										link.download = "blankytype-score.png";
+										link.download = "Blankytype-score.png";
 										link.href = canvas.toDataURL();
 										link.click();
 									}
@@ -1177,7 +1178,7 @@ export default function CodeTypeGame() {
 									const text = `I scored ${score} points (IQ: ${Math.min(
 										200,
 										Math.round((score / 700) * 150 + (accuracy / 100) * 50),
-									)}) in BlankyType! 🚀\nAccuracy: ${accuracy}%\nChallenges/Min: ${wpm}\nChallenges Solved: ${solved}\n\nTry it out!`;
+									)}) in Blankytype! 🚀\nAccuracy: ${accuracy}%\nChallenges/Min: ${wpm}\nChallenges Solved: ${solved}\n\nTry it out!`;
 									window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
 								}}
 								size="lg"
@@ -1199,11 +1200,18 @@ export default function CodeTypeGame() {
 		<div className="min-h-screen bg-background p-4">
 			<div className="max-w-4xl mx-auto space-y-6">
 				{/* Header */}
+        <h1 className="text-xs text-muted-foreground pl-12 translate-y-8">Blanky see</h1>
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-6">
 						<div className="flex items-center gap-3">
-							<Image src="/btype.png" alt="BlankyType Logo" width={32} height={32} className="h-8 w-8" />
-							<h1 className="text-xl font-semibold tracking-tight">BlankyType</h1>
+							<Image
+								src="/btype.png"
+								alt="Blankytype Logo"
+								width={32}
+								height={32}
+								className="h-8 w-8"
+							/>
+							<h1 className="text-xl font-semibold tracking-tight">Blankytype</h1>
 						</div>
 						<div className="text-sm text-muted-foreground font-mono">{challenge.title}</div>
 					</div>
@@ -1217,7 +1225,6 @@ export default function CodeTypeGame() {
 						</div>
 					</div>
 				</div>
-
 				<Card className="p-10 border border-border bg-card/40">
 					<div className="space-y-6">
 						<p className="text-muted-foreground text-sm">{challenge.description}</p>
