@@ -807,7 +807,7 @@ const challenges: Challenge[] = [
 export default function CodeTypeGame() {
 	const INITIAL_TIME = 60;
 	const [playError] = useSound(errorSfx, { volume: 0.4 });
-	const [playSolved] = useSound(solvedSfx, { volume: 0.5 });
+	const [playSolved] = useSound(solvedSfx, { volume: 0.3 });
 	const [playFinished] = useSound(finishedSfx, { volume: 0.6 });
 	const [timeLeft, setTimeLeft] = useState(60);
 	const [score, setScore] = useState(0);
