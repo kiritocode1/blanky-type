@@ -899,7 +899,7 @@ export default function CodeTypeGame() {
             return result;
           })()
         `
-
+        console.log('oi')
         const result = await eval(testCode)
 
         if (JSON.stringify(result) !== JSON.stringify(testCase.expected)) {
@@ -907,7 +907,6 @@ export default function CodeTypeGame() {
             success: false,
             message: `Failed: ${testCase.description}. Expected ${JSON.stringify(testCase.expected)}, got ${JSON.stringify(result)}`,
           }
-          console.log('oi')
         }
       }
       setTimeLeft((prev) => prev + 1)
