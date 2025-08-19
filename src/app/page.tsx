@@ -899,7 +899,6 @@ export default function CodeTypeGame() {
             return result;
           })()
         `
-        console.log('oi')
         const result = await eval(testCode)
 
         if (JSON.stringify(result) !== JSON.stringify(testCase.expected)) {
