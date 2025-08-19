@@ -864,7 +864,7 @@ export default function CodeTypeGame() {
 					};
 				}
 			}
-			setTimeLeft((prev) => prev + 3);
+			setTimeLeft((prev) => prev + 1);
 			return { success: true, message: "All tests passed! 🎉" };
 		} catch (error) {
 			return { success: false, message: `Error: ${error instanceof Error ? error.message : "Unknown error"}` };
@@ -906,7 +906,7 @@ export default function CodeTypeGame() {
 			playError(); // Play error sound
 			setFeedback({ type: "error", message: result.message });
 			setErrorCount((prev) => prev + 1);
-			setTimeLeft((prev) => Math.max(0, prev - 2)); // Decrease time by 2 seconds for wrong answers
+			setTimeLeft((prev) => Math.max(0, prev - 20)); // Decrease time by 20 seconds for wrong answers
 			setTimeout(() => setFeedback(null), 3000);
 		}
 	}, [answers, currentChallenge, executeCode, playError, playFinished, playSolved]);
