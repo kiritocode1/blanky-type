@@ -27,8 +27,8 @@ interface Challenge {
 		placeholder: string;
 	}>;
 	testCases: Array<{
-		input?: any[];
-		expected: any;
+		input?: unknown[];
+		expected: unknown;
 		description: string;
 	}>;
 	points: number;
