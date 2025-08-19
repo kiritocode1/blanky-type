@@ -1024,7 +1024,14 @@ export default function CodeTypeGame() {
 				</div>
 				<div className="max-w-3xl w-full text-center space-y-8">
 					<div className="space-y-4">
-						<h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
+						<div className="flex items-center justify-center gap-3 mb-6">
+							<img
+								src="/logo.png"
+								alt="BlankyType Logo"
+								className="h-12 w-12"
+							/>
+							<h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
+						</div>
 						<div className="text-6xl font-bold text-primary">{score}</div>
 						<div className="flex items-center justify-center gap-2">
 							<p className="text-muted-foreground">Coding IQ: </p>
@@ -1192,7 +1199,14 @@ export default function CodeTypeGame() {
 				{/* Header */}
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-6">
-						<h1 className="text-xl font-semibold tracking-tight">BlankyType</h1>
+						<div className="flex items-center gap-3">
+							<img
+								src="/logo.png"
+								alt="BlankyType Logo"
+								className="h-8 w-8"
+							/>
+							<h1 className="text-xl font-semibold tracking-tight">BlankyType</h1>
+						</div>
 						<div className="text-sm text-muted-foreground font-mono">{challenge.title}</div>
 					</div>
 					<div className="flex items-center gap-4 text-sm">
