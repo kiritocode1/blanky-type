@@ -10,7 +10,7 @@ import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import { motion, AnimatePresence } from "framer-motion";
 import useSound from "use-sound";
-
+import Image from "next/image";
 // Sound effects paths
 const errorSfx = "/jingles/error.mp3";
 const solvedSfx = "/jingles/solved.mp3";
@@ -1200,11 +1200,7 @@ export default function CodeTypeGame() {
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-6">
 						<div className="flex items-center gap-3">
-							<img
-								src="/btype.png"
-								alt="BlankyType Logo"
-								className="h-8 w-8"
-							/>
+							<Image src="/btype.png" alt="BlankyType Logo" width={32} height={32} className="h-8 w-8" />
 							<h1 className="text-xl font-semibold tracking-tight">BlankyType</h1>
 						</div>
 						<div className="text-sm text-muted-foreground font-mono">{challenge.title}</div>
