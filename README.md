@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+# Blanky Type
+
+A modern, interactive coding challenge and typing practice app built with **Next.js**, **TypeScript**, and **Radix UI**.  
+Solve small challenges (e.g. *“Add two numbers”*) with instant execution and validation directly in the browser.
+
+## Demo
+
+- **Production**: _Add your deployment URL here  
+- **Preview (Vercel)**: Automatically generated on PRs
+
+## 🛠️ Tech Stack
+
+- **Next.js 14+** (App Router)  
+- **TypeScript**  
+- **Tailwind CSS** (with PostCSS) + Radix UI  
+- **ESLint** (Next + TS rules)  
+
+## Requirements
+
+- Node.js 18+ (20 recommended)  
+- npm / pnpm / yarn
+
+## Features
+
+- 🧩 Coding challenges with instant browser feedback  
+- ⌨️ Typing practice with speed tracking  
+- 🎨 Accessible, themeable UI (Radix + Tailwind)  
+- 📊 Progress charts and stats  
+- 🔒 Security best practices (security headers, `robots.txt`)
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
 
 ```bash
-npm run dev
+pnpm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build for production:
 
-## Learn More
+```bash
+pnpm build
+pnpm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open http://localhost:3000 in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/` – Next.js App Router (pages, layouts, styles)
+- `src/components/` – UI components (Radix + custom)
+- `src/hooks/` – Custom React hooks
+- `src/lib/` – Utilities and helpers
+- `public/` – Static assets (images, sounds, robots.txt)
 
-## Deploy on Vercel
+## 🔒 Security and SEO
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Security headers** via `next.config.ts`:
+  - `X-Frame-Options: SAMEORIGIN`
+  - `X-Content-Type-Options: nosniff`
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+  - `Permissions-Policy` (restricts unused APIs)
+- **robots.txt** (in `public/`) allows indexing.
+Add `Sitemap:` when available for better SEO.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 Scripts
+
+Package scripts available:
+
+```bash
+{
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "typecheck": "tsc -p tsconfig.json --noEmit"
+}
+```
+
+Run with `pnpm <script>` or `npm run <script>`
+
+## 🤝 Contributing
+
+1. Create a branch:
+
+```bash
+git checkout -b feat/feature-name
+```
+
+2. Make your changes and run:
+
+```bash
+npm run lint && npm run typecheck
+```
+
+3. Push your branch:
+
+```bash
+git push origin feat/feature-name
+```
+
+4. Open a Pull Request 🎉
+
+## License
+
+MIT © kiritocode1
+
+---
+
+> Improve your typing and coding skills with Blanky Type!
