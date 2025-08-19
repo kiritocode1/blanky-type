@@ -1025,9 +1025,11 @@ export default function CodeTypeGame() {
 				<div className="max-w-3xl w-full text-center space-y-8">
 					<div className="space-y-4">
 						<div className="flex items-center justify-center gap-3 mb-6">
-							<img
-								src="/logo.png"
+							<Image
+								src="/btype.png"
 								alt="BlankyType Logo"
+								width={48}
+								height={48}
 								className="h-12 w-12"
 							/>
 							<h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
