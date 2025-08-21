@@ -10,7 +10,17 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Extend Next.js ESLint rules
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // Additional project rules
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    rules: {
+      // Fail commit if console.log is used (allows warn/error)
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+    },
+  },
 ];
 
 export default eslintConfig;
