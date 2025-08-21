@@ -883,28 +883,29 @@ export default function CodeTypeGame() {
 
   const executeCode = useCallback(async (code: string, testCases: Challenge['testCases']) => {
     try {
+      const functionName = code.match(/function\s+(\w+)\s*\(/)?.[1]
+      if (!functionName) {
+        return { success: false, message: 'Error: Could not find function name' }
+      }
+
       for (const testCase of testCases) {
         const testCode = `
-          ${code}
-
-          // Extract function name from the code
-          const functionName = code.match(/function\\s+(\\w+)\\s*\\(/)?.[1];
-          if (!functionName) throw new Error("Could not find function name");
-
-          // Test the function with its inputs
-          (async function() {
-            const inputs = ${JSON.stringify(testCase.input || [])};
-            const fn = eval(functionName);
-            const result = await fn.apply(null, inputs);
-            return result;
-          })()
-        `
+  ${code}
+  (async function() {
+    const fn = ${functionName};
+    const inputs = ${JSON.stringify(testCase.input || [])};
+    const result = await fn.apply(null, inputs);
+    return result;
+  })()
+          `
         const result = await eval(testCode)
 
         if (JSON.stringify(result) !== JSON.stringify(testCase.expected)) {
           return {
             success: false,
-            message: `Failed: ${testCase.description}. Expected ${JSON.stringify(testCase.expected)}, got ${JSON.stringify(result)}`,
+            message: `Failed: ${testCase.description}. Expected ${JSON.stringify(
+              testCase.expected
+            )}, got ${JSON.stringify(result)}`,
           }
         }
       }
@@ -1062,169 +1063,89 @@ export default function CodeTypeGame() {
       </pre>
     )
   }
-
-<<<<<<< HEAD
-	if (!gameActive && timeLeft === 0) {
-		return (
-			<div className="min-h-screen bg-background flex items-center justify-center p-4">
-				<div className="fixed top-4 right-4">
-					<ThemeToggle />
-				</div>
-				<div className="max-w-3xl w-full text-center space-y-8">
-          <div className="space-y-4">
-            
-						<div className="flex items-center justify-center gap-3 mb-6">
-							<Image
-								src="/btype.png"
-								alt="Blankytype Logo"
-								width={48}
-								height={48}
-								className="h-12 w-12"
-							/>
-							<h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
-						</div>
-						<div className="text-6xl font-bold text-primary">{score}</div>
-						<div className="flex items-center justify-center gap-2">
-							<p className="text-muted-foreground">Coding IQ: </p>
-							<p className="text-xl font-semibold">{Math.min(200, Math.round((score / 700) * 150 + (accuracy / 100) * 50))}</p>
-							<Button
-								variant="outline"
-								size="sm"
-								className="ml-2"
-								onClick={() => {
-									// Create a canvas with the stats
-									const canvas = document.createElement("canvas");
-									const ctx = canvas.getContext("2d");
-									canvas.width = 1200;
-									canvas.height = 630;
-=======
   if (!gameActive && timeLeft === 0) {
+    const codingIQ = Math.min(200, Math.round((score / 700) * 150 + (accuracy / 100) * 50))
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="fixed top-4 right-4">
           <ThemeToggle />
         </div>
         <div className="max-w-3xl w-full text-center space-y-8">
-          <div className="space-y-4">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Image
-                src="/btype.png"
-                alt="BlankyType Logo"
-                width={48}
-                height={48}
-                className="h-12 w-12"
-              />
-              <h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
-            </div>
-            <div className="text-6xl font-bold text-primary">{score}</div>
-            <div className="flex items-center justify-center gap-2">
-              <p className="text-muted-foreground">Coding IQ: </p>
-              <p className="text-xl font-semibold">
-                {Math.min(200, Math.round((score / 700) * 150 + (accuracy / 100) * 50))}
-              </p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="ml-2"
-                onClick={() => {
-                  // Create a canvas with the stats
-                  const canvas = document.createElement('canvas')
-                  const ctx = canvas.getContext('2d')
-                  canvas.width = 1200
-                  canvas.height = 630
->>>>>>> 5740886 (test prettier)
-
-                  if (ctx) {
-                    // Set background
-                    ctx.fillStyle = document.documentElement.classList.contains('dark')
-                      ? '#020817'
-                      : '#ffffff'
-                    ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-<<<<<<< HEAD
-										// Draw title
-										ctx.fillStyle = document.documentElement.classList.contains("dark") ? "#ffffff" : "#020817";
-										ctx.font = "bold 48px system-ui";
-										ctx.textAlign = "center";
-										ctx.fillText("Blankytype Results", 600, 100);
-=======
-                    // Draw title
-                    ctx.fillStyle = document.documentElement.classList.contains('dark')
-                      ? '#ffffff'
-                      : '#020817'
-                    ctx.font = 'bold 48px system-ui'
-                    ctx.textAlign = 'center'
-                    ctx.fillText('BlankyType Results', 600, 100)
->>>>>>> 5740886 (test prettier)
-
-                    // Draw stats
-                    ctx.font = 'bold 36px system-ui'
-                    ctx.fillText(`Score: ${score}`, 600, 200)
-                    ctx.fillText(
-                      `Coding IQ: ${Math.min(200, Math.round((score / 700) * 150 + (accuracy / 100) * 50))}`,
-                      600,
-                      260
-                    )
-                    ctx.fillText(`Accuracy: ${accuracy}%`, 600, 320)
-                    ctx.fillText(`Challenges/Min: ${wpm}`, 600, 380)
-                    ctx.fillText(`Challenges Solved: ${solved}`, 600, 440)
-
-                    // Add timestamp
-                    ctx.font = '24px system-ui'
-                    ctx.fillStyle = document.documentElement.classList.contains('dark')
-                      ? '#64748b'
-                      : '#94a3b8'
-                    ctx.fillText(new Date().toLocaleDateString(), 600, 500)
-
-<<<<<<< HEAD
-										// Convert to image and download
-										const link = document.createElement("a");
-										link.download = "Blankytype-score.png";
-										link.href = canvas.toDataURL();
-										link.click();
-									}
-								}}
-							>
-								Share Score
-							</Button>
-						</div>
-					</div>
-=======
-                    // Convert to image and download
-                    const link = document.createElement('a')
-                    link.download = 'blankytype-score.png'
-                    link.href = canvas.toDataURL()
-                    link.click()
-                  }
-                }}
-              >
-                Share Score
-              </Button>
-            </div>
-          </div>
->>>>>>> 5740886 (test prettier)
-
-          <Card className="p-8 border border-border bg-card">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8">
-              <div className="space-y-2">
-                <div className="text-3xl font-bold">{solved}</div>
-                <div className="text-sm text-muted-foreground">Challenges Solved</div>
+          <Card className="p-10 border border-border bg-card/40 space-y-8">
+            <div className="space-y-4">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <Image
+                  src="/btype.png"
+                  alt="BlankyType Logo"
+                  width={48}
+                  height={48}
+                  className="h-12 w-12"
+                />
+                <h1 className="text-4xl font-bold">Time&apos;s Up!</h1>
               </div>
-              <div className="space-y-2">
+              <div className="text-6xl font-bold text-primary">{score}</div>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-muted-foreground">Coding IQ:</p>
+                <p className="text-xl font-semibold">{codingIQ}</p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="ml-2"
+                  onClick={() => {
+                    const canvas = document.createElement('canvas')
+                    canvas.width = 1200
+                    canvas.height = 630
+                    const ctx = canvas.getContext('2d')
+                    if (ctx) {
+                      // Background
+                      const dark = document.documentElement.classList.contains('dark')
+                      ctx.fillStyle = dark ? '#020817' : '#ffffff'
+                      ctx.fillRect(0, 0, canvas.width, canvas.height)
+                      // Title
+                      ctx.fillStyle = dark ? '#ffffff' : '#020817'
+                      ctx.font = 'bold 48px system-ui'
+                      ctx.textAlign = 'center'
+                      ctx.fillText('BlankyType Results', 600, 100)
+                      // Stats
+                      ctx.font = 'bold 36px system-ui'
+                      ctx.fillText(`Score: ${score}`, 600, 200)
+                      ctx.fillText(`Coding IQ: ${codingIQ}`, 600, 260)
+                      ctx.fillText(`Accuracy: ${accuracy}%`, 600, 320)
+                      ctx.fillText(`Challenges/Min: ${wpm}`, 600, 380)
+                      ctx.fillText(`Solved: ${solved}`, 600, 440)
+                      // Timestamp
+                      ctx.font = '24px system-ui'
+                      ctx.fillStyle = dark ? '#64748b' : '#94a3b8'
+                      ctx.fillText(new Date().toLocaleDateString(), 600, 500)
+                      // Download
+                      const link = document.createElement('a')
+                      link.download = 'blankytype-score.png'
+                      link.href = canvas.toDataURL()
+                      link.click()
+                    }
+                  }}
+                >
+                  Share Score
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6 text-center">
+              <div>
                 <div className="text-3xl font-bold">{accuracy}%</div>
                 <div className="text-sm text-muted-foreground">Accuracy</div>
               </div>
-              <div className="space-y-2">
+              <div>
                 <div className="text-3xl font-bold">{wpm}</div>
                 <div className="text-sm text-muted-foreground">Challenges/Min</div>
               </div>
-              <div className="space-y-2">
+              <div>
                 <div className="text-3xl font-bold text-red-500">{errorCount}</div>
                 <div className="text-sm text-muted-foreground">Errors</div>
               </div>
             </div>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4">
               <h3 className="text-lg font-semibold">Performance Analysis</h3>
               <div className="text-sm text-muted-foreground text-left space-y-2">
                 <p>
@@ -1260,91 +1181,54 @@ export default function CodeTypeGame() {
               </div>
             </div>
 
-            <div className="mt-8">
-              <ChartContainer
-                config={{
-                  Score: { label: 'Score Progress', color: 'oklch(0.69 0.15 259)' },
-                  Errors: { label: 'Error Rate', color: 'oklch(0.69 0.18 25)' },
-                }}
-                className="h-64"
+            <ChartContainer
+              config={{
+                Score: { label: 'Score Progress', color: 'oklch(0.69 0.15 259)' },
+                Errors: { label: 'Error Rate', color: 'oklch(0.69 0.18 25)' },
+              }}
+              className="h-64"
+            >
+              <LineChart
+                data={Array.from({ length: INITIAL_TIME }, (_, i) => ({
+                  second: i + 1,
+                  score: perSecondScore[i] ?? (i > 0 ? (perSecondScore[i - 1] ?? 0) : 0),
+                  errors: perSecondErrors[i] ?? (i > 0 ? (perSecondErrors[i - 1] ?? 0) : 0),
+                }))}
               >
-                <LineChart
-                  data={Array.from({ length: INITIAL_TIME }, (_, i) => ({
-                    second: i + 1,
-                    score: perSecondScore[i] ?? (i > 0 ? (perSecondScore[i - 1] ?? 0) : 0),
-                    errors: perSecondErrors[i] ?? (i > 0 ? (perSecondErrors[i - 1] ?? 0) : 0),
-                  }))}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="second"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 10 }}
-                  />
-                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10 }} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="score"
-                    name="Score Progress"
-                    stroke="var(--color-Score)"
-                    dot={false}
-                    strokeWidth={2}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="errors"
-                    name="Error Rate"
-                    stroke="var(--color-Errors)"
-                    dot={false}
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ChartContainer>
-            </div>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="second" tickLine={false} axisLine={false} tick={{ fontSize: 10 }} />
+                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10 }} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  name="Score Progress"
+                  stroke="var(--color-Score)"
+                  dot={false}
+                  strokeWidth={2}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="errors"
+                  name="Error Rate"
+                  stroke="var(--color-Errors)"
+                  dot={false}
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </ChartContainer>
 
-<<<<<<< HEAD
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-							<Button
-								onClick={startGame}
-								size="lg"
-								className="w-full h-12 text-lg"
-							>
-								Try Again
-							</Button>
-							<Button
-								onClick={() => {
-									const text = `I scored ${score} points (IQ: ${Math.min(
-										200,
-										Math.round((score / 700) * 150 + (accuracy / 100) * 50),
-									)}) in Blankytype! 🚀\nAccuracy: ${accuracy}%\nChallenges/Min: ${wpm}\nChallenges Solved: ${solved}\n\nTry it out!`;
-									window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
-								}}
-								size="lg"
-								variant="outline"
-								className="w-full h-12 text-lg"
-							>
-								Share on Twitter
-							</Button>
-						</div>
-					</Card>
-				</div>
-			</div>
-		);
-	}
-=======
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
               <Button onClick={startGame} size="lg" className="w-full h-12 text-lg">
                 Try Again
               </Button>
               <Button
                 onClick={() => {
-                  const text = `I scored ${score} points (IQ: ${Math.min(
-                    200,
-                    Math.round((score / 700) * 150 + (accuracy / 100) * 50)
-                  )}) in BlankyType! 🚀\nAccuracy: ${accuracy}%\nChallenges/Min: ${wpm}\nChallenges Solved: ${solved}\n\nTry it out!`
+                  const text = `I scored ${score} points (IQ: ${codingIQ}) in BlankyType! 🚀
+Accuracy: ${accuracy}% | Challenges/Min: ${wpm} | Solved: ${solved}
+
+Try it out!`
                   window.open(
                     `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
                     '_blank'
@@ -1362,72 +1246,12 @@ export default function CodeTypeGame() {
       </div>
     )
   }
->>>>>>> 5740886 (test prettier)
 
   const challenge = challenges[currentChallenge]
 
-<<<<<<< HEAD
-	return (
-		<div className="min-h-screen bg-background p-4">
-			<div className="max-w-4xl mx-auto space-y-6">
-				{/* Header */}
-        <h1 className="text-xs text-muted-foreground pl-12 translate-y-8">Blanky see</h1>
-				<div className="flex items-center justify-between">
-					<div className="flex items-center gap-6">
-						<div className="flex items-center gap-3">
-							<Image
-								src="/btype.png"
-								alt="Blankytype Logo"
-								width={32}
-								height={32}
-								className="h-8 w-8"
-							/>
-							<h1 className="text-xl font-semibold tracking-tight">Blankytype</h1>
-						</div>
-						<div className="text-sm text-muted-foreground font-mono">{challenge.title}</div>
-					</div>
-					<div className="flex items-center gap-4 text-sm">
-						<ThemeToggle />
-						<div className="font-mono">
-							<span className="text-muted-foreground">time</span> {formatTime(timeLeft)}
-						</div>
-						<div className="font-mono">
-							<span className="text-muted-foreground">score</span> {score}
-						</div>
-					</div>
-				</div>
-				<Card className="p-10 border border-border bg-card/40">
-					<div className="space-y-6">
-						<p className="text-muted-foreground text-sm">{challenge.description}</p>
-						{renderCodeWithInput()}
-						<div className="text-xs text-muted-foreground">Press Enter to run. Timer starts when you begin typing.</div>
-						<div className="flex items-center justify-between">
-							<div className="space-y-1">
-								<h3 className="font-medium text-sm text-muted-foreground">Test Cases</h3>
-								<div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-									{challenge.testCases.map((test, i) => (
-										<div
-											key={i}
-											className="text-xs text-muted-foreground font-mono bg-background p-2 rounded border border-border"
-										>
-											{test.description} → {JSON.stringify(test.expected)}
-										</div>
-									))}
-								</div>
-							</div>
-							<Button
-								onClick={runCode}
-								size="sm"
-								className="px-4"
-							>
-								Run (Enter)
-							</Button>
-						</div>
-=======
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
@@ -1478,7 +1302,6 @@ export default function CodeTypeGame() {
                 Run (Enter)
               </Button>
             </div>
->>>>>>> 5740886 (test prettier)
 
             <AnimatePresence mode="wait">
               {feedback && (
